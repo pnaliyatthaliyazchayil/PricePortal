@@ -21,10 +21,10 @@ def get_con():
         return con, "full"
     elif os.path.exists(SAMPLE_CSV):
         df = pd.read_csv(SAMPLE_CSV)
-        con.execute("CREATE VIEW cdm AS SELECT * FROM df")
+        con.execute("CREATE TABLE cdm AS SELECT * FROM df")
         return con, "sample"
     else:
-        return None, "none"
+        return con, "none"
 
 con, data_mode = get_con()
 st.session_state.con = con
