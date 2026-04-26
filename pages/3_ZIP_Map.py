@@ -16,7 +16,7 @@ if con is None:
 import os
  
 IU_ZIP = "/data0/hcai-chargemasters/ingest/matched_rows_with_zip_2024.csv"
-SAMPLE_ZIP = os.path.join(os.path.dirname(__file__), "data", "sample_zip.csv")
+SAMPLE_ZIP = os.path.join(os.path.dirname(__file__), "..", "data", "sample_zip.csv")
  
 @st.cache_data
 def load_zip_data():
