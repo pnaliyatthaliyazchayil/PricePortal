@@ -21,7 +21,7 @@ SAMPLE_ZIP = "data/sample_zip.csv"
 @st.cache_data
 def load_zip_data():
     import glob
-    st.write("Files in data/:", glob.glob("data/*"))
+    #st.write("Files in data/:", glob.glob("data/*"))
     if os.path.exists(IU_ZIP):
         df = pd.read_csv(IU_ZIP)
         return df, "full"
