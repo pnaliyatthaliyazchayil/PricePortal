@@ -45,17 +45,19 @@ with col2:
  
 # ── aggregate by ZIP ─────────────────────────────────────────────────────────
 df_filtered = df_zip.copy()
+df_filtered["procedure_code"] = df_filtered["procedure_code"].astype(str)
+df_filtered["description"] = df_filtered["description"].astype(str)
 if cpt_filter:
     mask = (
-        df_filtered["procedure_code"].astype(str).str.contains(cpt_filter, case=False, na=False) |
-        df_filtered["description"].astype(str).str.contains(cpt_filter, case=False, na=False)
+        df_filtered["procedure_code"].str.contains(cpt_filter, case=False, na=False) |
+        df_filtered["description"].str.contains(cpt_filter, case=False, na=False)
     )
     df_filtered = df_filtered[mask]
- 
+
 if df_filtered.empty:
     st.warning("No records match that filter.")
     st.stop()
- 
+
 agg_func = {"Median": "median", "Mean": "mean", "Max": "max", "Min": "min"}[metric]
 zip_agg = (
     df_filtered.groupby("zip")["charge_numeric"]
@@ -64,8 +66,6 @@ zip_agg = (
     .rename(columns={"charge_numeric": "price"})
 )
 zip_agg["zip"] = zip_agg["zip"].astype(str).str.zfill(5)
- 
-st.markdown(f"### {metric} chargemaster price by ZIP — {len(zip_agg)} ZIP codes")
  
 # ── summary stats ────────────────────────────────────────────────────────────
 c1, c2, c3, c4 = st.columns(4)
