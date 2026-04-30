@@ -2,7 +2,7 @@
 
 import streamlit as st
 import plotly.graph_objects as go
-from pages.db import query, get_con, RATIOS_SUM_PQ, COMPLIANCE_PQ, CROSSWALK_PQ
+from views.db import query, get_con, RATIOS_SUM_PQ, COMPLIANCE_PQ, CROSSWALK_PQ
 
 
 def render():
