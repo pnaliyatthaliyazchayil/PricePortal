@@ -1,5 +1,5 @@
 """Payer Analysis — negotiated rate comparison across payers."""
-
+import pandas as pd
 import streamlit as st
 import plotly.express as px
 from views.db import query, PAYER_PQ
@@ -46,11 +46,11 @@ def render():
         return
 
     # Take top N by volume within each state
-    top = (
-        filtered.groupby("state", group_keys=False)
-        .apply(lambda g: g.nlargest(top_n, "n_pairs"))
-        .reset_index(drop=True)
-    )
+    parts = []
+    for state in filtered["state"].unique():
+        sub = filtered[filtered["state"] == state].nlargest(top_n, "n_pairs")
+        parts.append(sub)
+    top = pd.concat(parts, ignore_index=True)
     top = top.sort_values(["state", "p50_neg_ratio"])
 
     # ── Summary metrics ────────────────────────────────────────────
