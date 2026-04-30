@@ -23,7 +23,11 @@ def render():
     col2.metric("With gross prices", f"{int(ca.n_gross + in_.n_gross)}")
     col3.metric("With negotiated", f"{int(ca.n_neg + in_.n_neg)}")
 
-    total_rows = query(f"SELECT COUNT(*) as n FROM ratios").iloc[0].n
+    from views.db import RATIOS_PQ_PARTS
+    total_rows = sum(
+    query(f"SELECT COUNT(*) as n FROM '{p}'").iloc[0].n
+    for p in RATIOS_PQ_PARTS
+    )
     col4.metric("Hospital × code pairs", f"{int(total_rows):,}")
 
     # ── State compliance bars ──────────────────────────────────────
