@@ -2,7 +2,7 @@
 
 import streamlit as st
 import plotly.express as px
-from pages.db import query, PAYER_PQ
+from views.db import query, PAYER_PQ
 
 
 def render():
