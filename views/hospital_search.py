@@ -2,7 +2,7 @@
 
 import streamlit as st
 import plotly.graph_objects as go
-from pages.db import query, get_con, CROSSWALK_PQ, WANG_HOSP_PQ
+from views.db import query, get_con, CROSSWALK_PQ, WANG_HOSP_PQ
 
 
 def render():
