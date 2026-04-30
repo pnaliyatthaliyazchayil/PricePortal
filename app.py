@@ -65,12 +65,12 @@ section[data-testid="stSidebar"] .stRadio > div {
 }
 section[data-testid="stSidebar"] .stRadio > div > label {
     background: transparent;
-    color: #94a3b8 !important;
+    color: #e2e8f0 !important;
     border-radius: 8px;
     padding: 10px 14px;
     cursor: pointer;
     transition: all 0.15s ease;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 500;
     border: 1px solid transparent;
 }
@@ -82,6 +82,7 @@ section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"],
 section[data-testid="stSidebar"] .stRadio > div > label:has(input:checked) {
     background: linear-gradient(135deg, #1d4ed8, #2563eb);
     color: #ffffff !important;
+    font-weight: 700;
     border: 1px solid #3b82f6;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
