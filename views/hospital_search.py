@@ -73,11 +73,12 @@ def render():
     st.caption(f"**Ownership:** {selected.ownership}  ·  **County:** {selected.county}")
 
     # ── Price ratios for this hospital ─────────────────────────────
+    from views.db import RATIOS_PQ_PARTS
     ratios = query(f"""
         SELECT code, gross, cash, neg_min, neg_median,
                medicare_allowable, gross_ratio, cash_ratio,
                neg_min_ratio, neg_median_ratio, neg_n_payers
-        FROM ratios
+        FROM ({' UNION ALL '.join(f"SELECT * FROM '{p}'" for p in RATIOS_PQ_PARTS)})
         WHERE ccn = '{selected.ccn}'
         ORDER BY gross_ratio DESC NULLS LAST
     """)
