@@ -1,68 +1,110 @@
+"""
+PRICEPORTAL — Hospital Price Transparency Explorer
+====================================================
+Streamlit + DuckDB portal for exploring hospital prices across
+CA and IN, four price types, and Medicare benchmarks.
+
+Usage:
+    pip install streamlit duckdb pandas plotly
+    streamlit run app.py
+"""
+
 import streamlit as st
-import duckdb
-import os
-import pandas as pd
 
 st.set_page_config(
-    page_title="PricePortal",
+    page_title="PRICEPORTAL",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-IU_PARQUET = "/data0/hcai-chargemasters/ingest/cdm_all.parquet"
-SAMPLE_CSV = os.path.join(os.path.dirname(__file__), "data", "sample.csv")
-
-@st.cache_resource
-def get_con():
-    con = duckdb.connect(database=":memory:")
-    if os.path.exists(IU_PARQUET):
-        con.execute(f"CREATE VIEW cdm AS SELECT * FROM read_parquet('{IU_PARQUET}')")
-        return con, "full"
-    elif os.path.exists(SAMPLE_CSV):
-        df = pd.read_csv(SAMPLE_CSV)
-        con.execute("CREATE TABLE cdm AS SELECT * FROM df")
-        return con, "sample"
-    else:
-        return con, "none"
-
-con, data_mode = get_con()
-st.session_state.con = con
-
-st.title("🏥 PricePortal")
-st.caption("Open hospital price transparency — California & Indiana")
-
-if data_mode == "sample":
-    st.warning("⚠️ **Demo mode** — showing a 10,000-row sample. Full corpus (56M rows) runs on the IU server.")
-elif data_mode == "none":
-    st.error("No data source found. Please check README.")
-    st.stop()
-
-with st.spinner("Loading corpus stats..."):
-    stats = con.execute("""
-        SELECT
-            COUNT(DISTINCT oshpd_id) AS hospitals,
-            COUNT(*)                 AS total_rows,
-            MIN(year)                AS min_year,
-            MAX(year)                AS max_year
-        FROM cdm
-    """).fetchone()
-
-c1, c2, c3 = st.columns(3)
-c1.metric("Hospitals",     f"{stats[0]:,}")
-c2.metric("Years covered", f"{stats[2]}–{stats[3]}")
-c3.metric("Price records", f"{stats[1]:,.0f}")
-
+# ── Custom CSS ─────────────────────────────────────────────────────────
 st.markdown("""
----
-**Use the sidebar to navigate:**
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-| Page | What it does |
-|---|---|
-| 🔍 Hospital Search | Look up a hospital and browse all its prices |
-| 💊 CPT Search | Find a procedure and compare prices across hospitals |
-| 🗺️ ZIP Map | ZIP-level price maps *(coming Week 3)* |
-| 📊 Price Comparison | Four-price-type side-by-side *(coming Week 3)* |
+html, body, [class*="css"] {
+    font-family: 'DM Sans', sans-serif;
+}
+code, .stCode {
+    font-family: 'JetBrains Mono', monospace;
+}
+h1, h2, h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+}
+/* Metric cards */
+[data-testid="stMetric"] {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+[data-testid="stMetric"] label {
+    font-size: 0.85rem;
+    color: #495057;
+}
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: #1a1a2e;
+}
+section[data-testid="stSidebar"] .stMarkdown p,
+section[data-testid="stSidebar"] .stMarkdown h1,
+section[data-testid="stSidebar"] .stMarkdown h2,
+section[data-testid="stSidebar"] .stMarkdown h3,
+section[data-testid="stSidebar"] .stRadio label {
+    color: #e0e0e0;
+}
+/* Tables */
+.stDataFrame {
+    border-radius: 8px;
+    overflow: hidden;
+}
+</style>
+""", unsafe_allow_html=True)
 
-*Data: California HCAI chargemaster disclosures 2014–2025 · Federal HPT MRFs CA + IN · Medicare MPFS/OPPS/IPPS*
-""")
+# ── Navigation ─────────────────────────────────────────────────────────
+st.sidebar.markdown("# 🏥 PRICEPORTAL")
+st.sidebar.markdown("*Hospital Price Transparency*")
+st.sidebar.markdown("---")
+
+page = st.sidebar.radio(
+    "Navigate",
+    [
+        "📊 Overview",
+        "🏥 Hospital Search",
+        "🔍 CPT / Code Search",
+        "🗺️ ZIP Map",
+        "📈 Wang Replication",
+        "💰 Payer Analysis",
+    ],
+    label_visibility="collapsed",
+)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown(
+    "<small>Data: 528 hospitals · CA + IN<br>"
+    "Source: CMS HPT MRFs (2024–2026)<br>"
+    "Medicare: OPPS/MPFS CY2026</small>",
+    unsafe_allow_html=True,
+)
+
+# ── Route to pages ─────────────────────────────────────────────────────
+if page == "📊 Overview":
+    from pages import overview
+    overview.render()
+elif page == "🏥 Hospital Search":
+    from pages import hospital_search
+    hospital_search.render()
+elif page == "🔍 CPT / Code Search":
+    from pages import code_search
+    code_search.render()
+elif page == "🗺️ ZIP Map":
+    from pages import zip_map
+    zip_map.render()
+elif page == "📈 Wang Replication":
+    from pages import wang_replication
+    wang_replication.render()
+elif page == "💰 Payer Analysis":
+    from pages import payer_analysis
+    payer_analysis.render()
