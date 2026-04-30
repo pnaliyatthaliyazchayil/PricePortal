@@ -33,17 +33,71 @@ h1, h2, h3 {
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
 }
+
 /* Metric cards */
 [data-testid="stMetric"] {
     background: #f8f9fa;
-    border: 1px solid #dee2e6;
+    border: 1px solid #e9ecef;
     border-radius: 12px;
     padding: 16px 20px;
 }
-[data-testid="stMetric"] label {
-    font-size: 0.85rem;
-    color: #495057;
+
+/* Sidebar styling */
+section[data-testid="stSidebar"] {
+    background: #0f172a;
+    border-right: 1px solid #1e293b;
 }
+section[data-testid="stSidebar"] .stMarkdown p,
+section[data-testid="stSidebar"] .stMarkdown h1,
+section[data-testid="stSidebar"] .stMarkdown h2,
+section[data-testid="stSidebar"] .stMarkdown h3 {
+    color: #f1f5f9;
+}
+section[data-testid="stSidebar"] hr {
+    border-color: #334155;
+}
+
+/* Radio buttons → pill-style navigation */
+section[data-testid="stSidebar"] .stRadio > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+section[data-testid="stSidebar"] .stRadio > div > label {
+    background: transparent;
+    color: #94a3b8 !important;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+section[data-testid="stSidebar"] .stRadio > div > label:hover {
+    background: #1e293b;
+    color: #e2e8f0 !important;
+}
+section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"],
+section[data-testid="stSidebar"] .stRadio > div > label:has(input:checked) {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: #ffffff !important;
+    border: 1px solid #3b82f6;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Hide radio circles */
+section[data-testid="stSidebar"] .stRadio > div > label > div:first-child {
+    display: none;
+}
+
+/* Sidebar footer text */
+section[data-testid="stSidebar"] .stMarkdown small,
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p:last-child {
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
 /* Tables */
 .stDataFrame {
     border-radius: 8px;
