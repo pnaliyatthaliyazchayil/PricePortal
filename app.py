@@ -82,17 +82,17 @@ if page == "📊 Overview":
     from views import overview
     overview.render()
 elif page == "🏥 Hospital Search":
-    from pages import hospital_search
+    from views import hospital_search
     hospital_search.render()
 elif page == "🔍 CPT / Code Search":
-    from pages import code_search
+    from views import code_search
     code_search.render()
 elif page == "🗺️ ZIP Map":
-    from pages import zip_map
+    from views import zip_map
     zip_map.render()
 elif page == "📈 Wang Replication":
-    from pages import wang_replication
+    from views import wang_replication
     wang_replication.render()
 elif page == "💰 Payer Analysis":
-    from pages import payer_analysis
+    from views import payer_analysis
     payer_analysis.render()
