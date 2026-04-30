@@ -64,13 +64,15 @@ def render():
         state_clause = f"AND r.state = '{state_filter}'"
 
     # ── Query ──────────────────────────────────────────────────────
+    from views.db import RATIOS_PQ_PARTS
+    ratios_union = ' UNION ALL '.join(f"SELECT * FROM '{p}'" for p in RATIOS_PQ_PARTS)
     df = query(f"""
         SELECT r.ccn, x.name, x.city, r.state, x.county,
                x.hospital_type, x.ownership,
                r.gross, r.cash, r.neg_min, r.neg_median,
                r.medicare_allowable, r.gross_ratio, r.cash_ratio,
                r.neg_min_ratio, r.neg_median_ratio, r.neg_n_payers
-        FROM ratios r
+        FROM ({ratios_union}) r
         JOIN '{CROSSWALK_PQ}' x ON r.ccn = x.ccn
         WHERE r.code = '{code}' {state_clause}
         ORDER BY r.gross_ratio DESC NULLS LAST
