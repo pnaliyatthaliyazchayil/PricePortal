@@ -3,7 +3,7 @@
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
-from pages.db import query, WANG_HOSP_PQ, WANG_SUM_PQ
+from views.db import query, WANG_HOSP_PQ, WANG_SUM_PQ
 
 
 def render():
