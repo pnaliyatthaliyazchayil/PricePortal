@@ -79,7 +79,7 @@ st.sidebar.markdown(
 
 # ── Route to pages ─────────────────────────────────────────────────────
 if page == "📊 Overview":
-    from pages import overview
+    from views import overview
     overview.render()
 elif page == "🏥 Hospital Search":
     from pages import hospital_search
