@@ -64,15 +64,19 @@ section[data-testid="stSidebar"] .stRadio > div {
     gap: 4px;
 }
 section[data-testid="stSidebar"] .stRadio > div > label {
-    background: transparent;
-    color: #e2e8f0 !important;
-    border-radius: 8px;
-    padding: 10px 14px;
+    background: transparent !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
     cursor: pointer;
     transition: all 0.15s ease;
-    font-size: 1.05rem;
-    font-weight: 500;
-    border: 1px solid transparent;
+    border: 1px solid transparent !important;
+}
+section[data-testid="stSidebar"] .stRadio > div > label span,
+section[data-testid="stSidebar"] .stRadio > div > label p,
+section[data-testid="stSidebar"] .stRadio > div > label div {
+    color: #ffffff !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
 }
 section[data-testid="stSidebar"] .stRadio > div > label:hover {
     background: #1e293b;
@@ -80,11 +84,15 @@ section[data-testid="stSidebar"] .stRadio > div > label:hover {
 }
 section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"],
 section[data-testid="stSidebar"] .stRadio > div > label:has(input:checked) {
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-    color: #ffffff !important;
-    font-weight: 700;
-    border: 1px solid #3b82f6;
+    background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
+    border: 1px solid #3b82f6 !important;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+section[data-testid="stSidebar"] .stRadio > div > label:has(input:checked) span,
+section[data-testid="stSidebar"] .stRadio > div > label:has(input:checked) p,
+section[data-testid="stSidebar"] .stRadio > div > label:has(input:checked) div {
+    color: #ffffff !important;
+    font-weight: 700 !important;
 }
 
 /* Hide radio circles */
