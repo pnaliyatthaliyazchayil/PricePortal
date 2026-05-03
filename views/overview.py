@@ -60,7 +60,7 @@ def render():
         "neg_min": "Min negotiated",
         "neg_median": "Median negotiated",
     }
-    colors = {"CA": "#2563eb", "IN": "#dc2626"}
+    colors = {"CA": "#0d9488", "IN": "#d97706"}
 
     fig = go.Figure()
     for state in ["CA", "IN"]:
