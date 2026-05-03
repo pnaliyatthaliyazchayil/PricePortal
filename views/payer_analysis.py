@@ -68,7 +68,7 @@ def render():
         y="payer_name",
         color="state",
         orientation="h",
-        ccolor_discrete_map={"CA": "#0d9488", "IN": "#d97706"},
+        color_discrete_map={"CA": "#0d9488", "IN": "#d97706"},
         hover_data=["n_pairs", "p25_neg_ratio", "p75_neg_ratio"],
         labels={
             "p50_neg_ratio": "Median neg ÷ Medicare",
