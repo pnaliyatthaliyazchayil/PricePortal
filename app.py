@@ -36,8 +36,8 @@ h1, h2, h3 {
 
 /* Metric cards */
 [data-testid="stMetric"] {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background: var(--secondary-background-color);
+    border: 1px solid var(--text-color-05, rgba(128,128,128,0.2));
     border-radius: 12px;
     padding: 16px 20px;
 }
