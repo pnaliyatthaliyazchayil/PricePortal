@@ -115,7 +115,7 @@ def render():
     st.markdown("### Price distribution by state")
 
     fig = go.Figure()
-    colors = {"CA": "#2563eb", "IN": "#dc2626"}
+    colors = {"CA": "#0d9488", "IN": "#d97706"}
 
     for state in ["CA", "IN"]:
         if state_filter != "Both" and state != state_filter:
