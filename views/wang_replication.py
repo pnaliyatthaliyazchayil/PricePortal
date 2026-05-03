@@ -126,7 +126,7 @@ def render():
         color="state",
         nbins=40,
         barmode="overlay",
-        color_discrete_map={"CA": "#2563eb", "IN": "#dc2626"},
+        color_discrete_map={"CA": "#0d9488", "IN": "#d97706"},
         opacity=0.7,
         labels={"discount_pct": "Cash discount (%)", "state": "State"},
     )
