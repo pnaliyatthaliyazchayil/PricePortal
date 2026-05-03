@@ -13,7 +13,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="PRICEPORTAL",
-    page_icon="🏥",
+    page_icon="◆",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -116,46 +116,53 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
 """, unsafe_allow_html=True)
 
 # ── Navigation ─────────────────────────────────────────────────────────
-st.sidebar.markdown("# 🏥 PRICEPORTAL")
+st.sidebar.markdown("""
+<div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+    <svg width="36" height="36" viewBox="0 0 36 36">
+        <rect x="2" y="18" width="8" height="16" rx="2" fill="#0d9488"/>
+        <rect x="14" y="10" width="8" height="24" rx="2" fill="#d97706"/>
+        <rect x="26" y="4" width="8" height="30" rx="2" fill="#6366f1"/>
+    </svg>
+    <span style="font-size:1.5rem; font-weight:700; letter-spacing:2px; color:#f1f5f9;">PRICEPORTAL</span>
+</div>
+""", unsafe_allow_html=True)
 st.sidebar.markdown("*Hospital Price Transparency*")
 st.sidebar.markdown("---")
 
 page = st.sidebar.radio(
     "Navigate",
     [
-        "📊 Overview",
-        "🏥 Hospital Search",
-        "🔍 CPT / Code Search",
-        "🗺️ ZIP Map",
-        "📈 Wang Replication",
-        "💰 Payer Analysis",
+        "Overview",
+        "Hospital Search",
+        "CPT / Code Search",
+        "ZIP Map",
+        "Wang Replication",
+        "Payer Analysis",
     ],
     label_visibility="collapsed",
 )
-
 st.sidebar.markdown("---")
 st.sidebar.markdown(
     "**Data:** 528 hospitals · CA + IN  \n"
     "**Source:** CMS HPT MRFs (2024–2026)  \n"
     "**Medicare:** OPPS/MPFS CY2026"
 )
-
 # ── Route to pages ─────────────────────────────────────────────────────
-if page == "📊 Overview":
+if page == "Overview":
     from views import overview
     overview.render()
-elif page == "🏥 Hospital Search":
+elif page == "Hospital Search":
     from views import hospital_search
     hospital_search.render()
-elif page == "🔍 CPT / Code Search":
+elif page == "CPT / Code Search":
     from views import code_search
     code_search.render()
-elif page == "🗺️ ZIP Map":
+elif page == "ZIP Map":
     from views import zip_map
     zip_map.render()
-elif page == "📈 Wang Replication":
+elif page == "Wang Replication":
     from views import wang_replication
     wang_replication.render()
-elif page == "💰 Payer Analysis":
+elif page == "Payer Analysis":
     from views import payer_analysis
     payer_analysis.render()
