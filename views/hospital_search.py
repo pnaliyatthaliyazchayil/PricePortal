@@ -64,11 +64,15 @@ def render():
     st.markdown("---")
     st.markdown(f"## {selected['name']}")
 
-    c1, c2, c3, c4 = st.columns(4)
+    c1, c2 = st.columns(2)
     c1.metric("CCN", selected.ccn)
     c2.metric("Location", f"{selected.city}, {selected.state} {selected.zip}")
+
+    c3, c4 = st.columns(2)
     c3.metric("Type", selected.hospital_type)
-    c4.metric("Emergency dept", selected.has_ed)
+    c4.metric("Ownership", selected.ownership)
+
+    st.caption(f"**County:** {selected.county}  ·  **Emergency dept:** {selected.has_ed}")
 
     st.caption(f"**Ownership:** {selected.ownership}  ·  **County:** {selected.county}")
 
