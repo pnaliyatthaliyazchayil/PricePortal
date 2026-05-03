@@ -102,7 +102,7 @@ def render():
         y=[top_sorted["p75_neg_ratio"] - top_sorted["p25_neg_ratio"]],
         base=top_sorted["p25_neg_ratio"],
         color="state",
-        color_discrete_map={"CA": "#2563eb", "IN": "#dc2626"},
+        color_discrete_map={"CA": "#0d9488", "IN": "#d97706"},
         labels={"payer_name": "Payer", "value": "Ratio range"},
     )
     fig2.add_hline(y=1.0, line_dash="dash", line_color="#6b7280")
