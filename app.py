@@ -102,9 +102,9 @@ section[data-testid="stSidebar"] .stRadio > div > label > div:first-child {
 
 /* Sidebar footer text */
 section[data-testid="stSidebar"] .stMarkdown small,
-section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p:last-child {
-    color: #64748b;
-    font-size: 0.82rem;
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+    color: #94a3b8;
+    font-size: 1rem;
 }
 
 /* Tables */
