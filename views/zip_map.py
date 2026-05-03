@@ -157,7 +157,7 @@ def render():
             color="state",
             size="n_hospitals",
             hover_data=["zip", "poverty_rate_pct", "total_pop"],
-            color_discrete_map={"CA": "#2563eb", "IN": "#dc2626"},
+            color_discrete_map={"CA": "#0d9488", "IN": "#d97706"},
             opacity=0.65,
             labels={
                 "median_income": "Median household income ($)",
@@ -185,7 +185,7 @@ def render():
             color="state",
             size="n_hospitals",
             hover_data=["zip", "median_income", "total_pop"],
-            color_discrete_map={"CA": "#2563eb", "IN": "#dc2626"},
+            color_discrete_map={"CA": "#0d9488", "IN": "#d97706"},
             opacity=0.65,
             labels={
                 "poverty_rate_pct": "Poverty rate (%)",
