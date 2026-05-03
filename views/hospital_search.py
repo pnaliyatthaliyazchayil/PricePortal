@@ -129,10 +129,10 @@ def render():
     # Box plot of the four ratio types
     fig = go.Figure()
     ratio_cols = [
-        ("gross_ratio", "Chargemaster", "#ef4444"),
-        ("cash_ratio", "Cash", "#f59e0b"),
-        ("neg_min_ratio", "Min negotiated", "#10b981"),
-        ("neg_median_ratio", "Median negotiated", "#3b82f6"),
+        ("gross_ratio", "Chargemaster", "#0d9488"),
+        ("cash_ratio", "Cash", "#d97706"),
+        ("neg_min_ratio", "Min negotiated", "#6366f1"),
+        ("neg_median_ratio", "Median negotiated", "#e11d48"),
     ]
     for col, label, color in ratio_cols:
         vals = ratios[col].dropna()
