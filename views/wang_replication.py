@@ -79,9 +79,9 @@ def render():
 
     # Box plots of correlation distributions
     pairs = [
-        ("r_gross_cash", "Gross ↔ Cash", "#ef4444"),
-        ("r_gross_negmin", "Gross ↔ Neg min", "#3b82f6"),
-        ("r_cash_negmin", "Cash ↔ Neg min", "#10b981"),
+        ("r_gross_cash", "Gross ↔ Cash", "#0d9488"),
+        ("r_gross_negmin", "Gross ↔ Neg min", "#d97706"),
+        ("r_cash_negmin", "Cash ↔ Neg min", "#6366f1"),
     ]
 
     fig = go.Figure()
