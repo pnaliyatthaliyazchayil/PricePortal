@@ -145,6 +145,6 @@ def render():
         st.info(
             "**Cash is a flat discount off gross**\n\n"
             "Within-hospital gross↔cash correlation is r=1.0 "
-            "even among real discounters — a departure from "
+            "even among real discounters"
             "Wang 2023."
         )
