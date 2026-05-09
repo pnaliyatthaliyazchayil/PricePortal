@@ -111,20 +111,34 @@ def render():
         hide_index=True,
     )
 
-    # ── Key findings callout ───────────────────────────────────────
+# ── Key findings callout (computed from data) ──────────────────
     st.markdown("---")
+
+    # extract values from the summary we already loaded
+    def get_p50(state, price_type):
+        row = summary[(summary["state"] == state) & (summary["price_type"] == price_type)]
+        return float(row["p50"].iloc[0]) if not row.empty else None
+
+    ca_gross = get_p50("CA", "gross")
+    in_gross = get_p50("IN", "gross")
+    in_cash  = get_p50("IN", "cash")
+    ca_cash  = get_p50("CA", "cash")
+
     f1, f2, f3 = st.columns(3)
     with f1:
+        ratio = ca_gross / in_gross if (ca_gross and in_gross) else None
+        ratio_txt = f"~{ratio:.1f}×" if ratio else "—"
         st.info(
-            "**CA charges ~2× IN relative to Medicare**\n\n"
-            "Median gross ratio: CA 3.87× vs IN 1.81×. "
+            f"**CA charges {ratio_txt} IN relative to Medicare**\n\n"
+            f"Median gross ratio: CA {ca_gross:.2f}× vs IN {in_gross:.2f}×. "
             "The gap persists across all price types."
         )
     with f2:
+        position = "below" if (in_cash is not None and in_cash < 1.0) else "above"
         st.info(
-            "**IN cash sits *below* Medicare**\n\n"
-            "IN median cash ratio is 0.76× — hospitals price "
-            "cash below the Medicare benchmark, consistent with "
+            f"**IN cash sits *{position}* Medicare**\n\n"
+            f"IN median cash ratio is {in_cash:.2f}× — hospitals price "
+            f"cash {position} the Medicare benchmark, consistent with "
             "HEA 1004 repricing."
         )
     with f3:
