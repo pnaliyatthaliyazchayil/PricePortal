@@ -4,8 +4,11 @@ import streamlit as st
 import plotly.graph_objects as go
 from views.db import query, get_con, RATIOS_SUM_PQ, COMPLIANCE_PQ, CROSSWALK_PQ
 
-
 def render():
+    st.write("DEBUG: render() called")
+    st.write("DEBUG: about to query COMPLIANCE_PQ")
+    comp = query(f"SELECT * FROM '{COMPLIANCE_PQ}'")
+    st.write("DEBUG: query returned, rows:", len(comp))
     st.markdown("# Hospital Price Transparency Explorer")
     st.markdown(
         "Comparing **chargemaster**, **cash**, **negotiated**, and "
