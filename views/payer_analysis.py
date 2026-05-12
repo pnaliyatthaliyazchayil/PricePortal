@@ -83,9 +83,9 @@ def render():
         height=max(400, len(top) * 22),
         plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(l=10, t=30),
-        yaxis=dict(categoryorder="total ascending"),
-        font=dict(family="DM Sans", size=14),
-        title_font=dict(size=16),
+        yaxis=dict(categoryorder="total ascending", title_font=dict(size=18), tickfont=dict(size=16)),
+        xaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+        font=dict(family="DM Sans", size=16),
     )
     fig.update_xaxes(gridcolor="#e5e7eb")
     st.plotly_chart(fig, use_container_width=True)
@@ -112,8 +112,9 @@ def render():
         plot_bgcolor="rgba(0,0,0,0)",
         xaxis_tickangle=-45,
         showlegend=True,
-        font=dict(family="DM Sans", size=14),
-        title_font=dict(size=16),
+        font=dict(family="DM Sans", size=16),
+        xaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+        yaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
     )
     fig2.update_xaxes(gridcolor="#e5e7eb")
     fig2.update_yaxes(gridcolor="#e5e7eb", title_text="Neg ÷ Medicare ratio")
