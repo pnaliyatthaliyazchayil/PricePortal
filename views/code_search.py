@@ -152,7 +152,9 @@ def render():
         yaxis_title="Price ($)",
         plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(t=30),
-        font=dict(family="DM Sans"),
+        font=dict(family="DM Sans", size=16),
+        xaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+        yaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
     )
     fig.update_yaxes(gridcolor="#e5e7eb")
     st.plotly_chart(fig, use_container_width=True)
@@ -181,7 +183,9 @@ def render():
             xaxis_title="Gross charge ($)",
             yaxis_title="Min negotiated ($)",
             plot_bgcolor="rgba(0,0,0,0)",
-            font=dict(family="DM Sans"),
+            font=dict(family="DM Sans", size=16),
+            xaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+            yaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
         )
         fig2.update_xaxes(gridcolor="#e5e7eb")
         fig2.update_yaxes(gridcolor="#e5e7eb")
