@@ -19,6 +19,9 @@ def render():
             placeholder="e.g., Kaiser, Stanford, Indianapolis..."
         )
 
+    # ── Filter: only show hospitals with data ──────────────────────
+    only_with_data = st.checkbox("Only show hospitals with price data", value=True)
+
     # ── Hospital list ──────────────────────────────────────────────
     where = []
     if state_filter != "All":
@@ -33,21 +36,34 @@ def render():
 
     where_clause = "WHERE " + " AND ".join(where) if where else ""
 
-    hospitals = query(f"""
-        SELECT ccn, name, city, state, zip, county,
-               hospital_type, ownership, has_ed
-        FROM '{CROSSWALK_PQ}'
-        {where_clause}
-        ORDER BY state, name
-        LIMIT 200
-    """)
+    # If filter is on, join against the ratios file to only show CCNs with data
+    if only_with_data:
+        from views.db import RATIOS_PQ_PARTS
+        ratios_union = ' UNION ALL '.join(f"SELECT * FROM '{p}'" for p in RATIOS_PQ_PARTS)
+        hospitals = query(f"""
+            SELECT c.ccn, c.name, c.city, c.state, c.zip, c.county,
+                   c.hospital_type, c.ownership, c.has_ed
+            FROM '{CROSSWALK_PQ}' c
+            WHERE c.ccn IN (SELECT DISTINCT ccn FROM ({ratios_union}))
+              {('AND ' + ' AND '.join(where)) if where else ''}
+            ORDER BY c.state, c.name
+            LIMIT 200
+        """)
+    else:
+        hospitals = query(f"""
+            SELECT ccn, name, city, state, zip, county,
+                   hospital_type, ownership, has_ed
+            FROM '{CROSSWALK_PQ}'
+            {where_clause}
+            ORDER BY state, name
+            LIMIT 200
+        """)
 
     if hospitals.empty:
-        st.warning("No hospitals found. Try a broader search.")
+        st.warning("No hospitals found. Try a broader search or uncheck the filter.")
         return
 
     st.markdown(f"**{len(hospitals)}** hospitals found")
-
     # Hospital selector
     hospitals["label"] = (
         hospitals["name"] + " — " + hospitals["city"]
@@ -72,9 +88,13 @@ def render():
     c3.metric("Type", selected.hospital_type)
     c4.metric("Ownership", selected.ownership)
 
-    st.caption(f"**County:** {selected.county}  ·  **Emergency dept:** {selected.has_ed}")
-
-    st.caption(f"**Ownership:** {selected.ownership}  ·  **County:** {selected.county}")
+    st.markdown(
+        f"<p style='font-size: 16px; color: #6b7280;'>"
+        f"<b>County:</b> {selected.county}  ·  <b>Emergency dept:</b> {selected.has_ed}  ·  "
+        f"<b>Ownership:</b> {selected.ownership}"
+        f"</p>",
+        unsafe_allow_html=True,
+    )
 
     # ── Price ratios for this hospital ─────────────────────────────
     from views.db import RATIOS_PQ_PARTS
