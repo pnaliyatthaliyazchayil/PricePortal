@@ -80,10 +80,17 @@ def render():
         ))
 
     fig.add_hline(
-        y=1.0,
-        line_dash="dash",
-        line_color="#6b7280",
-        annotation=dict(text="Medicare = 1.0×", x=1, xref="paper", showarrow=False),
+    y=1.0,
+    line_dash="dash",
+    line_color="#6b7280",
+    )
+    fig.add_annotation(
+        x=1, xref="paper",
+        y=1.0, yref="y",
+        text="Medicare = 1.0×",
+        showarrow=False,
+        xanchor="right",
+        yanchor="bottom",
     )
     fig.update_layout(
     showlegend=True,
