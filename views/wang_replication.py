@@ -103,8 +103,9 @@ def render():
         yaxis_range=[-0.2, 1.1],
         plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(t=30),
-        font=dict(family="DM Sans", size=14),
-        title_font=dict(size=16),
+        font=dict(family="DM Sans", size=16),
+        xaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+        yaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=1.02),
     )
@@ -136,8 +137,9 @@ def render():
     fig2.update_layout(
         height=400,
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="DM Sans", size=14),
-        title_font=dict(size=16),
+        font=dict(family="DM Sans", size=16),
+        xaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+        yaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
     )
     fig2.update_xaxes(gridcolor="#e5e7eb")
     fig2.update_yaxes(gridcolor="#e5e7eb", title_text="# Hospitals")
