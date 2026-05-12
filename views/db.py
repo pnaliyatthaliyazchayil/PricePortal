@@ -48,23 +48,31 @@ def _download_file(local_name: str, zenodo_name: str) -> Path:
     tmp_path.rename(local_path)
     return local_path
 
-
 @st.cache_resource(show_spinner=False)
 def ensure_data_cached() -> dict:
-    """Download all needed parquet files from Zenodo. Returns local paths."""
+    """Download all needed parquet files from Zenodo in parallel."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
     paths = {}
-    progress = st.progress(0.0, text="Downloading analysis files from Zenodo (one-time, ~47 MB)…")
+    progress = st.progress(0.0, text="Downloading analysis files from Zenodo (one-time)…")
     total = len(ZENODO_FILES)
-    for i, (local_name, zenodo_name) in enumerate(ZENODO_FILES.items(), 1):
-        progress.progress((i - 1) / total, text=f"Downloading {local_name} ({i}/{total})…")
-        try:
-            paths[local_name] = _download_file(local_name, zenodo_name)
-        except Exception as e:
-            progress.empty()
-            st.error(f"❌ Failed to download {zenodo_name} from Zenodo:\n\n`{e}`")
-            st.stop()
-        progress.progress(i / total, text=f"Downloaded {i}/{total} files")
+    done = 0
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        futures = {
+            ex.submit(_download_file, local, zen): local
+            for local, zen in ZENODO_FILES.items()
+        }
+        for fut in as_completed(futures):
+            local = futures[fut]
+            try:
+                paths[local] = fut.result()
+            except Exception as e:
+                progress.empty()
+                st.error(f"❌ Failed to download {local}: {e}")
+                st.stop()
+            done += 1
+            progress.progress(done / total, text=f"Downloaded {done}/{total} files")
     progress.empty()
+    return paths
     return paths
 
 
