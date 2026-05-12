@@ -158,7 +158,8 @@ def render():
         showlegend=False,
         plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(t=30),
-        font=dict(family="DM Sans"),
+        font=dict(family="DM Sans", size=14),
+        title_font=dict(size=16),
     )
     fig.update_yaxes(gridcolor="#e5e7eb")
     st.plotly_chart(fig, use_container_width=True)

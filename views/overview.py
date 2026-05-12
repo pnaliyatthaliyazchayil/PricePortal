@@ -85,7 +85,8 @@ def render():
         legend=dict(orientation="h", yanchor="bottom", y=1.02,
                     xanchor="right", x=1),
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="DM Sans"),
+        font=dict(family="DM Sans", size=14),
+        title_font=dict(size=16),
     )
     fig.update_yaxes(gridcolor="#e5e7eb")
     st.plotly_chart(fig, use_container_width=True)
