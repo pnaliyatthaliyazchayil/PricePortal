@@ -102,7 +102,7 @@ def render():
         xanchor="center", x=0.5),
     plot_bgcolor="rgba(0,0,0,0)",
     font=dict(family="DM Sans", size=16),
-    xaxis=dict(title_font=dict(size=18), tickfont=dict(size=14)),
+    xaxis=dict(title_font=dict(size=18), tickfont=dict(size=18)),
     yaxis=dict(title_font=dict(size=18), tickfont=dict(size=14)),
 )
     fig.update_yaxes(gridcolor="#e5e7eb")
