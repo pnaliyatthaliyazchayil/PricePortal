@@ -11,7 +11,7 @@ def render():
     st.markdown(
         "Within-hospital correlations between chargemaster, cash, and "
         "minimum-negotiated prices across CPT/HCPCS codes. Replicates "
-        "and extends Wang, Bai & Anderson (*Health Affairs* 2023)."
+        "and extends Wang et al. (*Health Affairs* 2023, doi:10.1377/hlthaff.2022.00977)."
     )
 
     # ── Key finding callout ────────────────────────────────────────
