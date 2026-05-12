@@ -45,7 +45,12 @@ def render():
 
     # ── Price-to-Medicare ratios by state ──────────────────────────
     st.markdown("### Median price-to-Medicare ratio by state")
-    st.caption("How many times Medicare's rate does each hospital charge?")
+    st.markdown(
+    "<p style='font-size: 16px; color: #6b7280; margin-top: -10px;'>"
+    "Shows how many times Medicare's rate does each hospital charge"
+    "</p>",
+    unsafe_allow_html=True,
+    )
 
     summary = query(f"""
         SELECT * FROM '{RATIOS_SUM_PQ}'
@@ -74,21 +79,25 @@ def render():
             textposition="outside",
         ))
 
-    fig.add_hline(y=1.0, line_dash="dash", line_color="#6b7280",
-                  annotation_text="Medicare = 1.0×",
-                  annotation_position="bottom right")
-    fig.update_layout(
-        showlegend=True,
-        barmode="group",
-        height=420,
-        margin=dict(t=40, b=60),
-        yaxis_title="Median ratio to Medicare",
-        legend=dict(orientation="h", yanchor="bottom", y=1.05,
-            xanchor="center", x=0.5),
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="DM Sans", size=16),
-        title_font=dict(size=18),
+    fig.add_hline(
+        y=1.0,
+        line_dash="dash",
+        line_color="#6b7280",
+        annotation=dict(text="Medicare = 1.0×", x=1, xref="paper", showarrow=False),
     )
+    fig.update_layout(
+    showlegend=True,
+    barmode="group",
+    height=420,
+    margin=dict(t=40, b=60),
+    yaxis_title="Median ratio to Medicare",
+    legend=dict(orientation="h", yanchor="bottom", y=1.05,
+        xanchor="center", x=0.5),
+    plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="DM Sans", size=16),
+    xaxis=dict(title_font=dict(size=18), tickfont=dict(size=14)),
+    yaxis=dict(title_font=dict(size=18), tickfont=dict(size=14)),
+)
     fig.update_yaxes(gridcolor="#e5e7eb")
     st.plotly_chart(fig, use_container_width=True)
 
