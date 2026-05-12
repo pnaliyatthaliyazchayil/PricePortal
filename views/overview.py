@@ -4,6 +4,7 @@ import streamlit as st
 import plotly.graph_objects as go
 from views.db import query, get_con, RATIOS_SUM_PQ, COMPLIANCE_PQ, CROSSWALK_PQ
 
+
 def render():
     st.markdown("# Hospital Price Transparency Explorer")
     st.markdown(
@@ -24,8 +25,8 @@ def render():
 
     from views.db import RATIOS_PQ_PARTS
     total_rows = sum(
-    query(f"SELECT COUNT(*) as n FROM '{p}'").iloc[0].n
-    for p in RATIOS_PQ_PARTS
+        query(f"SELECT COUNT(*) as n FROM '{p}'").iloc[0].n
+        for p in RATIOS_PQ_PARTS
     )
     col4.metric("Hospital × code pairs", f"{int(total_rows):,}")
 
@@ -46,10 +47,10 @@ def render():
     # ── Price-to-Medicare ratios by state ──────────────────────────
     st.markdown("### Median price-to-Medicare ratio by state")
     st.markdown(
-    "<p style='font-size: 16px; color: #6b7280; margin-top: -10px;'>"
-    "Shows how many times Medicare's rate does each hospital charge"
-    "</p>",
-    unsafe_allow_html=True,
+        "<p style='font-size: 16px; color: #6b7280; margin-top: -10px;'>"
+        "Shows how many times Medicare's rate does each hospital charge"
+        "</p>",
+        unsafe_allow_html=True,
     )
 
     summary = query(f"""
@@ -80,9 +81,9 @@ def render():
         ))
 
     fig.add_hline(
-    y=1.0,
-    line_dash="dash",
-    line_color="#6b7280",
+        y=1.0,
+        line_dash="dash",
+        line_color="#6b7280",
     )
     fig.add_annotation(
         x=1, xref="paper",
@@ -93,18 +94,18 @@ def render():
         yanchor="bottom",
     )
     fig.update_layout(
-    showlegend=True,
-    barmode="group",
-    height=420,
-    margin=dict(t=40, b=60),
-    yaxis_title="Median ratio to Medicare",
-    legend=dict(orientation="h", yanchor="bottom", y=1.05,
-        xanchor="center", x=0.5),
-    plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="DM Sans", size=16),
-    xaxis=dict(title_font=dict(size=18), tickfont=dict(size=18)),
-    yaxis=dict(title_font=dict(size=18), tickfont=dict(size=14)),
-)
+        showlegend=True,
+        barmode="group",
+        height=420,
+        margin=dict(t=40, b=60),
+        yaxis_title="Median ratio to Medicare",
+        legend=dict(orientation="h", yanchor="bottom", y=1.05,
+                    xanchor="center", x=0.5),
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="DM Sans", size=16),
+        xaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+        yaxis=dict(title_font=dict(size=18), tickfont=dict(size=16)),
+    )
     fig.update_yaxes(gridcolor="#e5e7eb")
     st.plotly_chart(fig, use_container_width=True)
 
@@ -129,7 +130,7 @@ def render():
         hide_index=True,
     )
 
-# ── Key findings callout (computed from data) ──────────────────
+    # ── Key findings callout (computed from data) ──────────────────
     st.markdown("---")
 
     # extract values from the summary we already loaded
@@ -163,6 +164,6 @@ def render():
         st.info(
             "**Cash is a flat discount off gross**\n\n"
             "Within-hospital gross↔cash correlation is r=1.0 "
-            "even among real discounters"
-            "Wang 2023."
+            "even among real discounters — a departure from "
+            "Wang et al 2023 (doi:10.1001/jamanetworkopen.2023.19980)."
         )
