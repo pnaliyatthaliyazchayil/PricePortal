@@ -62,11 +62,11 @@ def render():
     colors = {"CA": "#0d9488", "IN": "#d97706"}
 
     fig = go.Figure()
-    for state in ["CA", "IN"]:
+    for state, label in [("CA", "California"), ("IN", "Indiana")]:
         sub = summary[summary["state"] == state].set_index("price_type")
         sub = sub.reindex(price_order)
         fig.add_trace(go.Bar(
-            name=state,
+            name=label,
             x=[price_labels[p] for p in price_order],
             y=sub["p50"].values,
             marker_color=colors[state],
@@ -78,15 +78,16 @@ def render():
                   annotation_text="Medicare = 1.0×",
                   annotation_position="bottom right")
     fig.update_layout(
+        showlegend=True,
         barmode="group",
         height=420,
         margin=dict(t=40, b=60),
         yaxis_title="Median ratio to Medicare",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02,
-                    xanchor="right", x=1),
+        legend=dict(orientation="h", yanchor="bottom", y=1.05,
+            xanchor="center", x=0.5),
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="DM Sans", size=14),
-        title_font=dict(size=16),
+        font=dict(family="DM Sans", size=16),
+        title_font=dict(size=18),
     )
     fig.update_yaxes(gridcolor="#e5e7eb")
     st.plotly_chart(fig, use_container_width=True)
