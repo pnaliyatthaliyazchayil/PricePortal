@@ -47,7 +47,7 @@ def render():
             WHERE c.ccn IN (SELECT DISTINCT ccn FROM ({ratios_union}))
               {('AND ' + ' AND '.join(where)) if where else ''}
             ORDER BY c.state, c.name
-            LIMIT 200
+            LIMIT 1000
         """)
     else:
         hospitals = query(f"""
@@ -56,7 +56,7 @@ def render():
             FROM '{CROSSWALK_PQ}'
             {where_clause}
             ORDER BY state, name
-            LIMIT 200
+            LIMIT 1000
         """)
 
     if hospitals.empty:
