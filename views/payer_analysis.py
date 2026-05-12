@@ -9,7 +9,7 @@ def render():
     st.markdown("# 💰 Payer Analysis")
     st.markdown(
         "Comparison of negotiated-rate-to-Medicare ratios across insurance "
-        "payers, by state. Payers with ≥100 hospital×code pairs shown."
+        "payers, by state. Payers with ≥1,000 hospital×code pairs shown by default."
     )
 
     payer = query(f"""
@@ -34,7 +34,7 @@ def render():
     with col_n:
         min_pairs = st.slider(
             "Minimum hospital×code pairs",
-            100, 10000, 500, step=100,
+            500, 50000, 1000, step=500,
         )
     with col_top:
         top_n = st.slider("Show top N payers", 10, 50, 25)
