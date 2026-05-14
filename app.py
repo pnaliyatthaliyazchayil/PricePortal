@@ -147,6 +147,29 @@ st.sidebar.markdown(
     "**Source:** CMS HPT MRFs (2024–2026)  \n"
     "**Medicare:** OPPS/MPFS CY2026"
 )
+
+# ── Version + data freshness ────────────────────────────────────
+import os
+from pathlib import Path
+from datetime import timezone
+
+APP_VERSION = "v1.0.0"
+_sentinel   = Path(__file__).parent / "data" / "state_compliance.parquet"
+
+if _sentinel.exists():
+    _mtime = _sentinel.stat().st_mtime
+    from datetime import datetime
+    _updated = datetime.fromtimestamp(_mtime, tz=timezone.utc).strftime("%b %d, %Y")
+else:
+    _updated = "unknown"
+
+st.sidebar.markdown("---")
+st.sidebar.markdown(
+    f"<small style='color:#64748b;'>"
+    f"App {APP_VERSION} · Data updated {_updated}"
+    f"</small>",
+    unsafe_allow_html=True,
+)
 # ── Route to pages ─────────────────────────────────────────────────────
 if page == "Overview":
     from views import overview
