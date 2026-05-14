@@ -165,9 +165,9 @@ else:
 
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    f"<small style='color:#64748b;'>"
+    f"<p style='color:#94a3b8; font-size:0.85rem; font-weight:600;'>"
     f"App {APP_VERSION} · Data updated {_updated}"
-    f"</small>",
+    f"</p>",
     unsafe_allow_html=True,
 )
 # ── Route to pages ─────────────────────────────────────────────────────
